@@ -84,11 +84,31 @@
           <div class="img-preview" v-if="preview_show.image"><img @load="preview_spinning=false" :src="url"/></div>
         </a-spin>
         <!-- 视频预览 -->
-        <div class="video-preview" v-show="preview_show.video" id="video-preview">
+        <div class="video-preview" v-if="preview_show.video">
+          <vue-plyr :options="plyr_options" ref="plyr-video">
+            <video
+              controls
+              crossorigin
+              playsinline 
+            >
+              <source
+                size="1080"
+                :src="plyr_options.video.src"
+                :type="plyr_options.video.type"
+              />
+            </video>
+          </vue-plyr>
         </div>
         <!-- 音频预览 -->
         <div class="audio-preview" v-if="preview_show.audio">
-          <aplayer autoplay :music="audio_options" />
+          <vue-plyr :options="plyr_options" ref="plyr-audio">
+            <audio controls crossorigin playsinline>
+              <source
+                  :src="plyr_options.audio.src"
+                  :type="plyr_options.audio.type"
+              />
+            </audio>
+          </vue-plyr>
         </div>
         <!-- 文本预览 -->
         <div class="text-preview" v-if="preview_show.text">
@@ -116,8 +136,6 @@ import {copyToClip} from '../utils/copy_clip'
 import {formatDate} from '../utils/date'
 import {getFileSize} from '../utils/file_size'
 import { MarkdownPreview } from 'vue-meditor'
-import DPlayer from 'dplayer'
-import Aplayer from 'vue-aplayer'
 import {Base64} from '../utils/base64'
 import {getUrl} from '../utils/get_url'
 import {versionStringCompare} from '../utils/version_compare'
@@ -125,7 +143,7 @@ import {versionStringCompare} from '../utils/version_compare'
 export default {
   name: 'Home',
   components:{
-    MarkdownPreview,Aplayer,
+    MarkdownPreview,
   },
   watch:{
     '$route'(to,from){
@@ -175,10 +193,8 @@ export default {
       file:{},
       //当前文件预览url
       url:'',
-      //预览视频选项
-      video_options:{},
-      //预览音频选项
-      audio_options:{},
+      //预览音视频选项
+      plyr_options:{},
       //当前请求file_id
       file_id:undefined,
       //请求的密码
@@ -223,7 +239,6 @@ export default {
       },
       text_content:'',//文本内容
       preview_spinning:true,
-      dp:undefined,
       isAdrWx:false,
     }
   },
@@ -275,7 +290,7 @@ export default {
           this.info=res.data
           if(res.data.check_update){
             // this.checkBackUpdate()
-            this.checkWebUpdate()
+            // this.checkWebUpdate()
           }
           if (res.data.title && res.data.title!="") {
             document.title=res.data.title
@@ -295,8 +310,11 @@ export default {
     },
     // 页面初始化
     init(){
-      if (this.dp) {
-        this.dp.destroy()
+      if (this.$refs['plyr-video']&&this.$refs['plyr-video'].player) {
+        this.$refs['plyr-video'].player.destroy()
+      }
+      if (this.$refs['plyr-audio']&&this.$refs['plyr-audio'].player) {
+        this.$refs['plyr-audio'].player.destroy()
       }
       this.info.url=window.location.href
       this.show.routes=true
@@ -413,24 +431,33 @@ export default {
       }
       if (file.category=='video') {
         // 预览视频
-        this.preview_show.video=true
-        this.video_options={
-          container: document.getElementById('video-preview'),
+        this.plyr_options={
+          title: file.name,
           video:{
-            url:this.url
+            src:this.url,
+            type:'video/'+file.file_extension
           },
           autoplay:this.info.autoplay?true:false,
-          screenshot:true,
+          keyboard: {
+            focused: true,
+            global: true,
+          },
         }
-        this.dp=new DPlayer(this.video_options)
+        this.preview_show.video=true
         return
       }
       if (file.category=='audio'){
-        this.audio_options={
+        this.plyr_options={
           title: file.name,
-          artist: '',
-          src: this.url,
-          pic: this.info.music_img?this.info.music_img:'https://img.xhofe.top/2020/12/07/f6e43dc79d74a.png'
+          audio:{
+            src:this.url,
+            type:'audio/'+file.file_extension
+          },
+          autoplay:this.info.autoplay?true:false,
+          keyboard: {
+            focused: true,
+            global: true,
+          },  
         }
         this.preview_show.audio=true
         return
@@ -631,7 +658,7 @@ export default {
 }
 
 @media screen and (min-width: 600px) {
-  #video-preview{
+  .video-preview{
     height: 80vh;
   }
 }

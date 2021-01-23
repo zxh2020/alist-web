@@ -1,10 +1,10 @@
-name: build
+name: build-plyr
 
 on:
   push:
-    branches: [ master ]
+    branches: [ plyr ]
   pull_request:
-    branches: [ master ]
+    branches: [ plyr ]
 
 jobs:
   release:
@@ -13,6 +13,8 @@ jobs:
       -
         name: Checkout
         uses: actions/checkout@v2
+        with:
+          ref: plyr
       -
         name: Set up Node
         uses: actions/setup-node@v2
