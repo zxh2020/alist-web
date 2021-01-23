@@ -7,7 +7,7 @@ on:
     branches: [ plyr ]
 
 jobs:
-  release:
+  build-plyr:
     runs-on: ubuntu-latest
     steps:
       -
