@@ -459,9 +459,11 @@ export default {
         if(file.type=='file'&&file.name.toLowerCase()=='readme.md'){
           this.show.readme=true
           this.readme_spinning=true
-          getText(this.info.backend_url+"d/"+file.file_id).then(res=>{
-            this.readme=res.data
-            this.readme_spinning=false
+          get(file.file_id).then(res=>{
+            getText(res.data.url).then(res=>{
+              this.readme=res.data
+              this.readme_spinning=false
+            })
           })
           return
         }
