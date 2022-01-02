@@ -72,7 +72,7 @@ const defaultOptions = {
     kind: OptionKind.VIEWER + OptionKind.PREFERENCE
   },
   defaultUrl: {
-    value: "https://fastly.jsdelivr.net/gh/Xhofe/alist-web@cdn/pdf.js/web/compressed.tracemonkey-pldi-09.pdf",
+    value: "https://cdn.jsdelivr.net/gh/Xhofe/alist-web@cdn/pdf.js/web/compressed.tracemonkey-pldi-09.pdf",
     kind: OptionKind.VIEWER
   },
   defaultZoomValue: {
@@ -116,7 +116,7 @@ const defaultOptions = {
     kind: OptionKind.VIEWER + OptionKind.PREFERENCE
   },
   imageResourcesPath: {
-    value: "https://fastly.jsdelivr.net/gh/Xhofe/alist-web@cdn/pdf.js/web/images/",
+    value: "https://cdn.jsdelivr.net/gh/Xhofe/alist-web@cdn/pdf.js/web/images/",
     kind: OptionKind.VIEWER
   },
   maxCanvasPixels: {
@@ -169,7 +169,7 @@ const defaultOptions = {
     kind: OptionKind.API
   },
   cMapUrl: {
-    value: "https://fastly.jsdelivr.net/gh/Xhofe/alist-web@cdn/pdf.js/web/cmaps/",
+    value: "https://cdn.jsdelivr.net/gh/Xhofe/alist-web@cdn/pdf.js/web/cmaps/",
     kind: OptionKind.API
   },
   disableAutoFetch: {
@@ -213,7 +213,7 @@ const defaultOptions = {
     kind: OptionKind.API
   },
   standardFontDataUrl: {
-    value: "https://fastly.jsdelivr.net/gh/Xhofe/alist-web@cdn/pdf.js/web/standard_fonts/",
+    value: "https://cdn.jsdelivr.net/gh/Xhofe/alist-web@cdn/pdf.js/web/standard_fonts/",
     kind: OptionKind.API
   },
   verbosity: {
@@ -225,7 +225,7 @@ const defaultOptions = {
     kind: OptionKind.WORKER
   },
   workerSrc: {
-    value: "https://fastly.jsdelivr.net/gh/Xhofe/alist-web@cdn/pdf.js/build/pdf.worker.js",
+    value: "https://cdn.jsdelivr.net/gh/Xhofe/alist-web@cdn/pdf.js/build/pdf.worker.js",
     kind: OptionKind.WORKER
   }
 };
@@ -239,7 +239,7 @@ const defaultOptions = {
     kind: OptionKind.VIEWER
   };
   defaultOptions.sandboxBundleSrc = {
-    value: "https://fastly.jsdelivr.net/gh/Xhofe/alist-web@cdn/pdf.js/build/pdf.sandbox.js",
+    value: "https://cdn.jsdelivr.net/gh/Xhofe/alist-web@cdn/pdf.js/build/pdf.sandbox.js",
     kind: OptionKind.VIEWER
   };
   defaultOptions.renderer.kind += OptionKind.PREFERENCE;
