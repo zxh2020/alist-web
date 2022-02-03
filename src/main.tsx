@@ -14,13 +14,11 @@ declare global {
 
 const dynamicCdn = window.ALIST.cdn;
 // @ts-ignore
-window.__dynamic_handler__ = function (importer) {
-  console.log(importer);
+window.__dynamicImportHandler__ = function (importer) {
   return dynamicCdn + "assets/" + importer;
 };
 // @ts-ignore
-window.__dynamic_preload__ = function (preloads: Array<string>) {
-  console.log(preloads);
+window.__dynamicImportPreload__ = function (preloads: Array<string>) {
   return preloads.map((preload) => dynamicCdn + preload);
 };
 

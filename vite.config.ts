@@ -9,10 +9,7 @@ export default defineConfig({
   plugins: [
     reactRefresh(),
     pluginRewriteAll(),
-    useDynamicPublicPath({
-      dynamicImportHandler: "window.__dynamic_handler__",
-      dynamicImportPreload: "window.__dynamic_preload__",
-    }),
+    useDynamicPublicPath(),
   ],
   build: {
     target: "es2015",
